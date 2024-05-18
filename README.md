@@ -1,2 +1,1 @@
-# lpm
-LuKi's Package Manager
+# lpm - LuKi's Package Manager
