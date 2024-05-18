@@ -8,22 +8,15 @@ import lpm.Util.Others;
 
 public class App {
     public static final void main(String[] args) {
-        int startIndex = 0;
-
-        if (args.length > 0 && "--debug".equals(args[0])) {
-            Others.isDebug = true;
-            startIndex = 1;
-        }
-
         Others.checkHealth();
 
-        if ((startIndex == 1 && args.length == 1) || (startIndex == 0 && args.length == 0)) {
-            Log.error("Invalid number of arguments.");
+        if (args.length < 1) {
+            Log.error("No option provided.");
             printHelp();
             exit(1);
         }
 
-        switch (args[startIndex]) {
+        switch (args[0]) {
             case "-h":
             case "--help":
                 printHelp();
@@ -33,14 +26,14 @@ public class App {
                 printVersion();
                 exit(0);
             case "install":
-                if (args.length <= startIndex + 1) {
+                if (args.length < 2) {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                Package.install(args[startIndex + 1]);
+                Package.install(args[1]);
                 break;
             default:
-                Log.error("Unknown option: " + args[startIndex]);
+                Log.error("Unknown option: " + args[0]);
                 printHelp();
                 exit(1);
             }
