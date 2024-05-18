@@ -8,22 +8,19 @@ import lpm.Util.Others;
 
 public class App {
     public static final void main(String[] args) {
-        if (args.length == 0) {
-            throwArgsError();
-        }
-
         int startIndex = 0;
 
-        if ("--debug".equals(args[0])) {
+        if (args.length > 0 && "--debug".equals(args[0])) {
             Others.isDebug = true;
-            Others.checkHealth();
             startIndex = 1;
         }
 
-        if (startIndex == 1) {
-            if (args.length == 1) {
-                throwArgsError();
-            }
+        Others.checkHealth();
+
+        if ((startIndex == 1 && args.length == 1) || (startIndex == 0 && args.length == 0)) {
+            Log.error("Invalid number of arguments.");
+            printHelp();
+            exit(1);
         }
 
         switch (args[startIndex]) {
@@ -47,12 +44,6 @@ public class App {
                 printHelp();
                 exit(1);
             }
-    }
-
-    public static final void throwArgsError() {
-        Log.error("Invalid number of arguments.");
-        printHelp();
-        exit(1);
     }
 
     public static final void printHelp() {
