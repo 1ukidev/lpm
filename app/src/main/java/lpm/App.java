@@ -7,7 +7,7 @@ import lpm.Util.Log;
 import lpm.Util.Others;
 
 public class App {
-    public static final void main(String[] args) {
+    public static void main(String[] args) {
         Others.checkHealth();
 
         if (args.length < 1) {
@@ -32,6 +32,12 @@ public class App {
                 }
                 Package.install(args[1]);
                 break;
+            case "remove":
+                Log.error("Not implemented yet.");
+                exit(1);
+            case "run":
+                Log.error("Not implemented yet.");
+                exit(1);
             default:
                 Log.error("Unknown option: " + args[0]);
                 printHelp();
@@ -49,6 +55,6 @@ public class App {
     }
 
     public static final void printVersion() {
-        Log.info("LuKi's Package Manager (lpm) " + Constants.version);
+        Log.info("LuKi's Package Manager (lpm) (" + Constants.version + ")");
     }
 }

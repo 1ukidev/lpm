@@ -1,0 +1,10 @@
+{
+    "portugay-cpp": {
+        "steps": [
+            {
+                "command": "g++ -o main main.cpp",
+                "output": "main"
+            }
+        ]
+    }
+}
