@@ -17,6 +17,8 @@ public class App {
             exit(1);
         }
 
+        Manager manager = new Manager();
+
         switch (args[0]) {
             case "-h":
             case "--help":
@@ -33,7 +35,7 @@ public class App {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                Manager.install(args[1]);
+                manager.install(args[1]);
                 exit(0);
 
             case "remove":
@@ -41,7 +43,7 @@ public class App {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                Manager.remove(args[1]);
+                manager.remove(args[1]);
                 exit(0);
 
             case "run":
@@ -49,18 +51,18 @@ public class App {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                Manager.run(args[1]);
+                manager.run(args[1]);
                 exit(0);
 
             case "refresh":
-                Manager.refresh();
+                manager.refresh();
                 exit(0);
 
             default:
                 Log.error("Unknown option: " + args[0]);
                 Log.error("Try 'lpm --help' for more information.");
                 exit(1);
-            }
+        }
     }
 
     public static final void printHelp() {

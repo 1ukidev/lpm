@@ -11,6 +11,7 @@ import java.util.function.Function;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lpm.Abstract.AbstractManager;
 import lpm.Entity.PackageEntity;
 import lpm.Util.Assert;
 import lpm.Util.Constants;
@@ -18,8 +19,8 @@ import lpm.Util.Log;
 import lpm.Util.Shell;
 import lpm.Util.Web;
 
-public class Manager {
-    public static final void install(String name) {
+public class Manager implements AbstractManager {
+    public final void install(String name) {
         Assert.notNull(name, "Package name cannot be null.");
 
         Log.info("Installing " + name + "...");
@@ -40,7 +41,10 @@ public class Manager {
                 Web web = new Web();
 
                 Log.info("Downloading " + name + "...");
-                web.get(pkg.getUrl(), Constants.lpmFolder + "/" + name + ".tar.gz");
+                int downloadPkg = web.get(pkg.getUrl(), Constants.lpmFolder + "/" + name + ".tar.gz");
+                if (downloadPkg != 0) {
+                    throwInstallError();
+                }
 
                 if (pkg.getUrl().contains(".tar.gz")) {
                     int runMkdir = shell.exec("default", "mkdir", "-p", Constants.lpmFolder + "/" + name);
@@ -78,24 +82,24 @@ public class Manager {
         Log.success(name + " installed successfully in " + Constants.lpmFolder + "/" + name);
     }
 
-    public static final void remove(String name) {
+    public final void remove(String name) {
         Assert.notNull(name, "Package name cannot be null.");
         Log.error("Not implemented yet.");
         exit(1);
     }
 
-    public static final void run(String name) {
+    public final void run(String name) {
         Assert.notNull(name, "Package name cannot be null.");
         Log.error("Not implemented yet.");
         exit(1);
     }
 
-    public static final void refresh() {
+    public final void refresh() {
         Log.error("Not implemented yet.");
         exit(1);
     }
 
-    public static final void throwInstallError() {
+    public final void throwInstallError() {
         Log.error("Failed to install package.");
         exit(1);
     }
