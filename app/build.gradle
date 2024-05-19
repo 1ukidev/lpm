@@ -18,8 +18,21 @@ application {
     mainClass = 'lpm.App'
 }
 
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'lpm.App'
     }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }

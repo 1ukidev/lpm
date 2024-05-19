@@ -1,7 +1,7 @@
 [
     {
         "name": "portugay-cpp",
-        "url": "",
-        "steps": "g++ -o main main.cpp"
+        "url": "https://github.com/1ukidev/portugay-cpp/archive/main.tar.gz",
+        "steps": "cd portugay.cpp-main && make"
     }
 ]

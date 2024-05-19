@@ -6,9 +6,7 @@ public class Log {
     }
 
     public static final void error(String s) {
-        System.out.println(Colors.RED + "*" + Colors.NC);
         System.out.println(Colors.RED + "* " + s + Colors.NC);
-        System.out.println(Colors.RED + "*" + Colors.NC);
     }
 
     public static final void success(String s) {

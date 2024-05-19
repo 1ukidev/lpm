@@ -9,4 +9,11 @@ public class Assert {
             exit(1);
         }
     }
+
+    public static final void notEmpty(String s, String msg) {
+        if (s.isEmpty()) {
+            Log.error(msg);
+            exit(1);
+        }
+    }
 }

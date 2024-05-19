@@ -8,11 +8,12 @@ import lpm.Util.Others;
 
 public class App {
     public static void main(String[] args) {
-        Others.checkHealth();
+        Others others = new Others();
+        others.checkSystem();
 
         if (args.length < 1) {
             Log.error("No option provided.");
-            printHelp();
+            Log.error("Try 'lpm --help' for more information.");
             exit(1);
         }
 
@@ -21,26 +22,43 @@ public class App {
             case "--help":
                 printHelp();
                 exit(0);
+
             case "-v":
             case "--version":
                 printVersion();
                 exit(0);
+
             case "install":
                 if (args.length < 2) {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                Package.install(args[1]);
-                break;
+                Manager.install(args[1]);
+                exit(0);
+
             case "remove":
-                Log.error("Not implemented yet.");
-                exit(1);
+                if (args.length < 2) {
+                    Log.error("No package provided.");
+                    exit(1);
+                }
+                Manager.remove(args[1]);
+                exit(0);
+
             case "run":
-                Log.error("Not implemented yet.");
-                exit(1);
+                if (args.length < 2) {
+                    Log.error("No package provided.");
+                    exit(1);
+                }
+                Manager.run(args[1]);
+                exit(0);
+
+            case "refresh":
+                Manager.refresh();
+                exit(0);
+
             default:
                 Log.error("Unknown option: " + args[0]);
-                printHelp();
+                Log.error("Try 'lpm --help' for more information.");
                 exit(1);
             }
     }
@@ -49,6 +67,9 @@ public class App {
         Log.info("Usage: lpm [OPTION]...");
         Log.info("Commands:");
         Log.info("  install <package> Install a package");
+        Log.info("  remove  <package> Remove a package");
+        Log.info("  run     <package> Run a package");
+        Log.info("  refresh           Refresh the package list");
         Log.info("Options:");
         Log.info("  -h, --help    Display this help and exit");
         Log.info("  -v, --version Display version information and exit");

@@ -4,19 +4,38 @@ import static java.lang.System.exit;
 
 import java.io.File;
 
-public class Others {
-    public static final void checkHealth() {
+import lpm.Abstract.AbstractOthers;
+
+public class Others implements AbstractOthers {
+    public final void checkSystem() {
         if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
             Log.error("This program only works on Linux.");
             Log.info("Current OS: " + System.getProperty("os.name").strip());
             exit(1);
         }
 
-        File lpmFolder = new File(Constants.lpmFolder);
-        if (!lpmFolder.exists()) {
+        if (!new File(Constants.lpmFolder).exists()) {
             Log.info("Creating ~/.lpm folder...");
-            if (!lpmFolder.mkdirs()) {
-                Log.error("Failed to create ~/.lpm folder.");
+
+            try {
+                if (!new File(Constants.lpmFolder).mkdirs()) {
+                    Log.error("Failed to create ~/.lpm folder.");
+                    exit(1);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                exit(1);
+            }
+        }
+
+        if (!new File(Constants.lpmPackagesFile).exists()) {
+            Log.info("Fetching ~/.lpm/packages.json file...");
+
+            Web web = new Web();
+            int status = web.get(Constants.lpmPackagesUrl, Constants.lpmPackagesFile);
+
+            if (status == 1) {
+                Log.error("Failed to fetch ~/.lpm/packages.json file.");
                 exit(1);
             }
         }

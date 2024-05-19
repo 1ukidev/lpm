@@ -6,9 +6,11 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Web {
+import lpm.Abstract.AbstractWeb;
+
+public class Web implements AbstractWeb {
     @SuppressWarnings("deprecation")
-    public static final int get(String url, String outputFile) {
+    public final int get(String url, String outputFile) {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;
