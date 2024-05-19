@@ -1,8 +1,15 @@
 package lpm.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PackageEntity {
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("url")
     private String url;
+
+    @JsonProperty("steps")
     private String steps;
 
     public String getName() {

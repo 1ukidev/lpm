@@ -9,6 +9,7 @@ import java.net.URL;
 import lpm.Abstract.AbstractWeb;
 
 public class Web implements AbstractWeb {
+    @SuppressWarnings("deprecation")
     public final int get(String url, String outputFile) {
         HttpURLConnection connection = null;
         InputStream inputStream = null;

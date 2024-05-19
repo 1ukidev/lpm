@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.function.Function;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +28,7 @@ public class Manager implements AbstractManager {
 
         try {
             Set<PackageEntity> pkgs = objectMapper.readValue(new File(Constants.lpmPackagesFile), new TypeReference<Set<PackageEntity>>() {});
-            Map<String, PackageEntity> pkgsMap = pkgs.stream().collect(Collectors.toMap(PackageEntity::getName, Function.identity()));
+            Map<String, PackageEntity> pkgsMap = pkgs.stream().collect(Collectors.toMap(PackageEntity::getName, packageEntity -> packageEntity));
 
             PackageEntity pkg = pkgsMap.get(name);
 
@@ -46,7 +45,7 @@ public class Manager implements AbstractManager {
                     throwInstallError();
                 }
 
-                if (pkg.getUrl().contains(".tar.gz")) {
+                if (pkg.getUrl().endsWith(".tar.gz")) {
                     int runMkdir = shell.exec("default", "mkdir", "-p", Constants.lpmFolder + "/" + name);
                     if (runMkdir != 0) {
                         throwInstallError();
