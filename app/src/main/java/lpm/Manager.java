@@ -94,8 +94,12 @@ public class Manager {
     }
 
     public static final void refresh() {
-        Log.error("Not implemented yet.");
-        exit(1);
+        Log.info("Refreshing packages...");
+        int download = Web.get(Constants.lpmPackagesUrl, Constants.lpmPackagesFile);
+        if (download != 0) {
+            Log.error("Failed to refresh packages.");
+            exit(1);
+        }
     }
 
     public static final void list() {
