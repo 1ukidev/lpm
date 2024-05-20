@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Web {
-    public static final int get(String url, String outputFile) {
+    public static final int get(final String url, final String outputFile) {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
         FileOutputStream fileOutputStream = null;

@@ -7,7 +7,7 @@ import lpm.Util.Constants;
 import lpm.Util.Log;
 
 public class Shell {
-    public static final int exec(String dir, String... cmd) {
+    public static final int exec(final String dir, final String... cmd) {
         Log.info("Running '" + String.join(" ", cmd) + "'...");
 
         try {

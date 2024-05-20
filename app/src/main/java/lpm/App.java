@@ -7,7 +7,7 @@ import lpm.Util.Log;
 import lpm.Util.Others;
 
 public class App {
-    public static void main(String[] args) {
+    public static final void main(String[] args) {
         Others.checkSystem();
 
         if (args.length < 1) {

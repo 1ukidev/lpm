@@ -16,7 +16,7 @@ import lpm.Util.Log;
 import lpm.Util.Web;
 
 public class Manager {
-    public static final void install(String name) {
+    public static final void install(final String name) {
         Assert.notNull(name, "Package name cannot be null.");
 
         Log.info("Installing " + name + "...");
@@ -81,13 +81,13 @@ public class Manager {
         Log.success(name + " installed successfully in " + Constants.lpmFolder + "/" + name);
     }
 
-    public static final void remove(String name) {
+    public static final void remove(final String name) {
         Assert.notNull(name, "Package name cannot be null.");
         Log.error("Not implemented yet.");
         exit(1);
     }
 
-    public static final void run(String name) {
+    public static final void run(final String name) {
         Assert.notNull(name, "Package name cannot be null.");
         Log.error("Not implemented yet.");
         exit(1);
