@@ -8,8 +8,7 @@ import lpm.Util.Others;
 
 public class App {
     public static void main(String[] args) {
-        Others others = new Others();
-        others.checkSystem();
+        Others.checkSystem();
 
         if (args.length < 1) {
             Log.error("No option provided.");
@@ -17,47 +16,42 @@ public class App {
             exit(1);
         }
 
-        Manager manager = new Manager();
-
         switch (args[0]) {
             case "-h":
             case "--help":
                 printHelp();
                 exit(0);
-
             case "-v":
             case "--version":
                 printVersion();
                 exit(0);
-
             case "install":
                 if (args.length < 2) {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                manager.install(args[1]);
+                Manager.install(args[1]);
                 exit(0);
-
             case "remove":
                 if (args.length < 2) {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                manager.remove(args[1]);
+                Manager.remove(args[1]);
                 exit(0);
-
             case "run":
                 if (args.length < 2) {
                     Log.error("No package provided.");
                     exit(1);
                 }
-                manager.run(args[1]);
+                Manager.run(args[1]);
                 exit(0);
-
             case "refresh":
-                manager.refresh();
+                Manager.refresh();
                 exit(0);
-
+            case "list":
+                Manager.list();
+                exit(0);
             default:
                 Log.error("Unknown option: " + args[0]);
                 Log.error("Try 'lpm --help' for more information.");
@@ -72,6 +66,7 @@ public class App {
         Log.info("  remove  <package> Remove a package");
         Log.info("  run     <package> Run a package");
         Log.info("  refresh           Refresh the package list");
+        Log.info("  list              List all installed packages");
         Log.info("Options:");
         Log.info("  -h, --help    Display this help and exit");
         Log.info("  -v, --version Display version information and exit");

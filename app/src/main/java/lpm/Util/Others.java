@@ -4,10 +4,8 @@ import static java.lang.System.exit;
 
 import java.io.File;
 
-import lpm.Abstract.AbstractOthers;
-
-public class Others implements AbstractOthers {
-    public final void checkSystem() {
+public class Others {
+    public static final void checkSystem() {
         if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
             Log.error("This program only works on Linux.");
             Log.info("Current OS: " + System.getProperty("os.name").strip());
@@ -31,8 +29,7 @@ public class Others implements AbstractOthers {
         if (!new File(Constants.lpmPackagesFile).exists()) {
             Log.info("Fetching ~/.lpm/packages.json file...");
 
-            Web web = new Web();
-            int status = web.get(Constants.lpmPackagesUrl, Constants.lpmPackagesFile);
+            int status = Web.get(Constants.lpmPackagesUrl, Constants.lpmPackagesFile);
 
             if (status == 1) {
                 Log.error("Failed to fetch ~/.lpm/packages.json file.");
