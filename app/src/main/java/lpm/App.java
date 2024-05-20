@@ -73,6 +73,6 @@ public class App {
     }
 
     public static final void printVersion() {
-        Log.info("LuKi's Package Manager (lpm) (" + Constants.version + ")");
+        Log.info(Constants.version);
     }
 }
