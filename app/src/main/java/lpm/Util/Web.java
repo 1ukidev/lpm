@@ -4,7 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
 
 public class Web {
     public static final int get(final String url, final String outputFile) {
@@ -14,7 +14,7 @@ public class Web {
         BufferedInputStream bufferedInputStream = null;
 
         try {
-            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection = (HttpURLConnection) new URI(url).toURL().openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
 

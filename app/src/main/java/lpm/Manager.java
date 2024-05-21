@@ -3,13 +3,14 @@ package lpm;
 import static java.lang.System.exit;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Set;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 
 import lpm.Entity.PackageEntity;
-import lpm.Linux.Checksum;
 import lpm.Linux.Shell;
 import lpm.Util.Assert;
 import lpm.Util.Constants;
@@ -22,11 +23,9 @@ public class Manager {
 
         Log.info("Installing " + name + "...");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
         try {
-            Set<PackageEntity> pkgs = objectMapper.readValue(new File(Constants.lpmPackagesFile),
-                                                             new TypeReference<Set<PackageEntity>>() {});
+            String jsonContent = new String(Files.readAllBytes(Paths.get(Constants.lpmPackagesFile)));
+            Set<PackageEntity> pkgs = JSON.parseObject(jsonContent, new TypeReference<Set<PackageEntity>>() {});
 
             PackageEntity pkg = null;
             for (PackageEntity packageEntity : pkgs) {
@@ -50,34 +49,28 @@ public class Manager {
             }
 
             Log.info("Downloading " + name + "...");
-            int downloadPkg = Web.get(pkg.getUrl(), Constants.lpmFolder + "/" + name + ".tar.gz");
+            String tarGzLocation = Constants.lpmFolder + "/" + name + ".tar.gz";
+            int downloadPkg = Web.get(pkg.getUrl(), tarGzLocation);
             if (downloadPkg != 0) {
                 throwInstallError();
             }
 
             Log.info("Verifying checksum...");
-            File tarGz = new File(Constants.lpmFolder + "/" + name + ".tar.gz");
-            String checksum = Checksum.generate(tarGz);
-            boolean check = checksum.equals(pkg.getChecksum());
+            String SHA256 = Shell.SHA256(tarGzLocation);
+            boolean check = SHA256.equals(pkg.getSHA256());
             if (!check) {
                 Log.error("Checksum mismatch.");
                 exit(1);
             }
 
-            int execMkdir = Shell.install.execMkdir(name);
-            if (execMkdir != 0) {
-                throwInstallError();
-            }
+            new File(Constants.lpmFolder + "/" + name).mkdirs();
 
             int execTar = Shell.install.execTar(name);
             if (execTar != 0) {
                 throwInstallError();
             }
 
-            int execRm = Shell.install.execRm(name);
-            if (execRm != 0) {
-                throwInstallError();
-            }
+            new File(tarGzLocation).delete();
 
             int execSteps = Shell.install.execSteps(name, pkg.getSteps());
             if (execSteps != 0) {

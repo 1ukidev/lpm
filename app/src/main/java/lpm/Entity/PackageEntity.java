@@ -1,18 +1,18 @@
 package lpm.Entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.alibaba.fastjson2.annotation.JSONField;
 
 public class PackageEntity {
-    @JsonProperty("name")
+    @JSONField(name="name")
     private String name;
 
-    @JsonProperty("url")
+    @JSONField(name="url")
     private String url;
 
-    @JsonProperty("checksum")
-    private String checksum;
+    @JSONField(name="sha256")
+    private String SHA256;
 
-    @JsonProperty("steps")
+    @JSONField(name="steps")
     private String steps;
 
     public String getName() {
@@ -31,12 +31,12 @@ public class PackageEntity {
         this.url = url;
     }
 
-    public String getChecksum() {
-        return checksum;
+    public String getSHA256() {
+        return SHA256;
     }
 
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
+    public void setSHA256(String SHA256) {
+        this.SHA256 = SHA256;
     }
 
     public String getSteps() {

@@ -2,7 +2,7 @@
     {
         "name": "portugay-cpp",
         "url": "https://github.com/1ukidev/portugay-cpp/archive/main.tar.gz",
-        "checksum": "797f62bc56d45a80e31b3bec8752cf07d7f24a004d8c70cca26d270f7eeb9061",
+        "sha256": "797f62bc56d45a80e31b3bec8752cf07d7f24a004d8c70cca26d270f7eeb9061",
         "steps": "cd portugay.cpp-main && make"
     }
 ]
