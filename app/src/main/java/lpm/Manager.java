@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lpm.Entity.PackageEntity;
+import lpm.Linux.Checksum;
 import lpm.Linux.Shell;
 import lpm.Util.Assert;
 import lpm.Util.Constants;
@@ -52,6 +53,15 @@ public class Manager {
             int downloadPkg = Web.get(pkg.getUrl(), Constants.lpmFolder + "/" + name + ".tar.gz");
             if (downloadPkg != 0) {
                 throwInstallError();
+            }
+
+            Log.info("Verifying checksum...");
+            File tarGz = new File(Constants.lpmFolder + "/" + name + ".tar.gz");
+            String checksum = Checksum.generate(tarGz);
+            boolean check = checksum.equals(pkg.getChecksum());
+            if (!check) {
+                Log.error("Checksum mismatch.");
+                exit(1);
             }
 
             int execMkdir = Shell.install.execMkdir(name);

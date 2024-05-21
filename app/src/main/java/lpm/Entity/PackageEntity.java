@@ -9,6 +9,9 @@ public class PackageEntity {
     @JsonProperty("url")
     private String url;
 
+    @JsonProperty("checksum")
+    private String checksum;
+
     @JsonProperty("steps")
     private String steps;
 
@@ -26,6 +29,14 @@ public class PackageEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getChecksum() {
+        return checksum;
+    }
+
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
     }
 
     public String getSteps() {

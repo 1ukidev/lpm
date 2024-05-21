@@ -32,7 +32,7 @@ public class Web {
             while ((bytesRead = bufferedInputStream.read(data, 0, 1024)) != -1) {
                 fileOutputStream.write(data, 0, bytesRead);
             }
-            
+
             return 0;
         } catch (Exception e) {
             Log.error("Failed to download file: " + e.getMessage());
