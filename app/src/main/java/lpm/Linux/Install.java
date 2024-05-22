@@ -7,7 +7,7 @@ public class Install {
         return Shell.exec(Constants.lpmFolder, "tar", "xzf", file, "-C", dest);
     }
 
-    public final int execSteps(final String folder, final String steps) {
-        return Shell.exec(folder, "sh", "-c", steps);
+    public final int execSteps(final String dir, final String steps) {
+        return Shell.exec(dir, "sh", "-c", steps);
     }
 }

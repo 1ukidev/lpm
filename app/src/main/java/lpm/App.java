@@ -59,7 +59,7 @@ public class App {
         }
     }
 
-    public static final void printHelp() {
+    private static final void printHelp() {
         Log.info("Usage: lpm [OPTION]...");
         Log.info("Commands:");
         Log.info("  install <package> Install a package");
@@ -72,7 +72,7 @@ public class App {
         Log.info("  -v, --version Display version information and exit");
     }
 
-    public static final void printVersion() {
+    private static final void printVersion() {
         Log.info(Constants.version);
     }
 }

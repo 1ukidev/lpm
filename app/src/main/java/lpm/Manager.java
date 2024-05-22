@@ -116,7 +116,7 @@ public class Manager {
         exit(1);
     }
 
-    public static final void throwInstallError() {
+    private static final void throwInstallError() {
         Log.error("Failed to install package.");
         exit(1);
     }

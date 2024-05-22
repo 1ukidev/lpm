@@ -3,9 +3,9 @@ package lpm.Util;
 import static java.lang.System.exit;
 
 public class Assert {
-    public static final void notNull(final Object obj, final String s) {
+    public static final void notNull(final Object obj, final String msg) {
         if (obj == null) {
-            Log.error(s);
+            Log.error(msg);
             exit(1);
         }
     }

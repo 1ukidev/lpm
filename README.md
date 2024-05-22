@@ -1,4 +1,4 @@
-# lpm - LuKi's Package Manager
+# lpm
 
 An experimental and simple package manager for Linux.
 
