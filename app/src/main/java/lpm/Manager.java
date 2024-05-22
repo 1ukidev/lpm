@@ -23,6 +23,8 @@ public class Manager {
 
         Log.info("Installing " + name + "...");
 
+        String pkgFolder = null;
+
         try {
             String jsonContent = new String(Files.readAllBytes(Paths.get(Constants.lpmPackagesFile)));
             Set<PackageEntity> pkgs = JSON.parseObject(jsonContent, new TypeReference<Set<PackageEntity>>() {});
@@ -48,31 +50,33 @@ public class Manager {
                 exit(1);
             }
 
+            pkgFolder = Constants.lpmFolder + "/" + name;
+
             Log.info("Downloading " + name + "...");
-            String tarGzLocation = Constants.lpmFolder + "/" + name + ".tar.gz";
-            int downloadPkg = Web.get(pkg.getUrl(), tarGzLocation);
+            String tarGz = pkgFolder + ".tar.gz";
+            int downloadPkg = Web.get(pkg.getUrl(), tarGz);
             if (downloadPkg != 0) {
                 throwInstallError();
             }
 
             Log.info("Verifying checksum...");
-            String SHA256 = Shell.SHA256(tarGzLocation);
+            String SHA256 = Shell.SHA256(tarGz);
             boolean check = SHA256.equals(pkg.getSHA256());
             if (!check) {
                 Log.error("Checksum mismatch.");
                 exit(1);
             }
 
-            new File(Constants.lpmFolder + "/" + name).mkdirs();
+            new File(pkgFolder).mkdirs();
 
-            int execTar = Shell.install.execTar(name);
-            if (execTar != 0) {
+            int extractTar = Shell.install.extractTar(tarGz, pkgFolder);
+            if (extractTar != 0) {
                 throwInstallError();
             }
 
-            new File(tarGzLocation).delete();
+            new File(tarGz).delete();
 
-            int execSteps = Shell.install.execSteps(name, pkg.getSteps());
+            int execSteps = Shell.install.execSteps(pkgFolder, pkg.getSteps());
             if (execSteps != 0) {
                 throwInstallError();
             }
@@ -81,7 +85,9 @@ public class Manager {
             exit(1);
         }
 
-        Log.success(name + " installed successfully in " + Constants.lpmFolder + "/" + name);
+        if (pkgFolder != null) {
+            Log.success(name + " installed successfully in " + pkgFolder);
+        }
     }
 
     public static final void remove(final String name) {
