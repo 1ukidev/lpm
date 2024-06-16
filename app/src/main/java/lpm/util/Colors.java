@@ -1,4 +1,4 @@
-package lpm.Util;
+package lpm.util;
 
 public class Colors {
     public static final String CYAN = "\u001B[36m";

@@ -1,12 +1,12 @@
-package lpm.Linux;
+package lpm.linux;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import lpm.Util.Constants;
-import lpm.Util.Log;
+import lpm.util.Constants;
+import lpm.util.Log;
 
 public class Shell {
     public static final int exec(final String dir, final String... cmd) {

@@ -10,12 +10,12 @@ import java.util.Set;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 
-import lpm.Entity.PackageEntity;
-import lpm.Linux.Shell;
-import lpm.Util.Assert;
-import lpm.Util.Constants;
-import lpm.Util.Log;
-import lpm.Util.Web;
+import lpm.entities.PackageEntity;
+import lpm.linux.Shell;
+import lpm.util.Assert;
+import lpm.util.Constants;
+import lpm.util.Log;
+import lpm.util.Web;
 
 public class Manager {
     public static final void install(final String name) {

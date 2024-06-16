@@ -1,4 +1,4 @@
-package lpm.Util;
+package lpm.util;
 
 import static java.lang.System.exit;
 

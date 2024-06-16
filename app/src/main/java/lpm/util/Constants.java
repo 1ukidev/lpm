@@ -1,4 +1,4 @@
-package lpm.Util;
+package lpm.util;
 
 public class Constants {
     public static final String version = "1";

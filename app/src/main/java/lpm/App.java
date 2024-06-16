@@ -2,9 +2,9 @@ package lpm;
 
 import static java.lang.System.exit;
 
-import lpm.Util.Constants;
-import lpm.Util.Log;
-import lpm.Util.Others;
+import lpm.util.Constants;
+import lpm.util.Log;
+import lpm.util.Others;
 
 public class App {
     public static final void main(String[] args) {

@@ -1,6 +1,6 @@
-package lpm.Linux;
+package lpm.linux;
 
-import lpm.Util.Constants;
+import lpm.util.Constants;
 
 public class Install {
     public final int extractTar(final String file, final String dest) {

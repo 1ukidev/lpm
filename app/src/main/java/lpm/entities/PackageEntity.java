@@ -1,4 +1,4 @@
-package lpm.Entity;
+package lpm.entities;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 

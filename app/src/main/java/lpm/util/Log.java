@@ -1,4 +1,4 @@
-package lpm.Util;
+package lpm.util;
 
 public class Log {
     public static final void info(final String s) {
